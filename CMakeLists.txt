@@ -24,7 +24,6 @@ cmake_policy(SET CMP0110 NEW) # Allows spaces in CTest names
 ## Project #####################################################################
 project("@Project.Name@"
         VERSION "@Project.Version//0.1.0@"
-        HOMEPAGE "@GitHub.URL@"
         DESCRIPTION "@Project.Description@"
         LANGUAGES CXX
         )
