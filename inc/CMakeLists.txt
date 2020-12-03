@@ -25,10 +25,8 @@ add_library("@Project.Target@Headers" INTERFACE
 add_library("@Project.Name@::@Project.Target@Headers" ALIAS "@Project.Target@Headers")
 
 
-target_include_directories("@Project.Name@Headers"
-                           PUBLIC
+target_include_directories("@Project.Name@Headers" INTERFACE
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-                           INTERFACE
                            $<INSTALL_INTERFACE:inc>
                            )
 
