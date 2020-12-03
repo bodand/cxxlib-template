@@ -115,7 +115,9 @@ target_compile_features("${${${PROJECT_NAME}_TARGET}_SETTINGS}"
                         )
 
 ## Create final library ##
-add_library("@Project.Target@")
+add_library("@Project.Target@" "${${${PROJECT_NAME}_OPTION}_BUILD_TYPE}"
+            $<TARGET_PROPERTY:${${${PROJECT_NAME}_TARGET}_SOURCES},SOURCES>
+            )
 add_library("@Project.Name@::@Project.Target@" ALIAS "@Project.Target@")
 
 target_link_libraries("@Project.Target@"
@@ -123,7 +125,6 @@ target_link_libraries("@Project.Target@"
                       "${${${PROJECT_NAME}_TARGET}_HEADERS}"
                       PRIVATE
                       "${${${PROJECT_NAME}_TARGET}_SETTINGS}"
-                      "${${${PROJECT_NAME}_TARGET}_SOURCES}"
                       "@Project.Name@Warnings"
                       "@Project.Name@Dependencies"
                       )

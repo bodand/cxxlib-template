@@ -40,6 +40,7 @@ endif ()
 
 ## {fmt} ##
 message(CHECK_START "[${PROJECT_NAME}] '{fmt}' (1/${_DEP_COUNT})")
+set(FMT_INSTALL ON CACHE BOOL "." FORCE)
 GetDependency(fmt
               REPOSITORY_URL https://github.com/fmtlib/fmt.git
               VERSION 7.0.3
@@ -67,3 +68,9 @@ endif ()
 
 list(POP_BACK CMAKE_MESSAGE_INDENT)
 message(CHECK_PASS "done")
+
+
+## Installation ################################################################
+install(TARGETS "@Project.Name@Dependencies"
+        EXPORT "${PROJECT_NAME}Targets"
+        )

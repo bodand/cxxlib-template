@@ -23,7 +23,17 @@ add_library("@Project.Target@Headers" INTERFACE
             ## ...headers... ##
             )
 add_library("@Project.Name@::@Project.Target@Headers" ALIAS "@Project.Target@Headers")
+
+
+target_include_directories("@Project.Name@Headers"
+                           PUBLIC
+                           "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+                           INTERFACE
+                           $<INSTALL_INTERFACE:inc>
+                           )
+
 set("${${PROJECT_NAME}_TARGET}_HEADERS" "@Project.Target@Headers")
+set("${${PROJECT_NAME}_TARGET}_HEADERS" "@Project.Target@Headers" PARENT_SCOPE)
 
 ## Installation ################################################################
 install(TARGETS "${${${PROJECT_NAME}_TARGET}_HEADERS}"

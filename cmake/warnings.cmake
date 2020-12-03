@@ -12,7 +12,7 @@
 ## Defines
 #
 # Target:
-# - @Project.Name@Dependencies
+# - @Project.Name@Warnings
 
 ## Modules #####################################################################
 include(CheckCXXCompilerFlag)
@@ -75,3 +75,8 @@ foreach (warn IN LISTS _MAKEMAKE_POSSIBLE_WARNINGS)
         target_compile_options(@Project.Name@Warnings INTERFACE "${WarningPrefix}${warn}")
     endif ()
 endforeach ()
+
+## Installation ################################################################
+install(TARGETS "@Project.Name@Warnings"
+        EXPORT "${PROJECT_NAME}Targets"
+        )

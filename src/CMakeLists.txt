@@ -20,8 +20,7 @@
 
 ## Libray Target ###############################################################
 add_library("@Project.Target@Sources" INTERFACE
-            ## ...sources... ##
-            dummy.cxx
+            "${CMAKE_CURRENT_SOURCE_DIR}/dummy.cxx"
             )
 add_library("@Project.Name@::@Project.Target@Sources" ALIAS "@Project.Target@Sources")
 set("${${PROJECT_NAME}_TARGET}_SOURCES" "@Project.Target@Headers")
