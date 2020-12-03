@@ -146,7 +146,9 @@ sub interpol :prototype(\%_) {
         db_get($db->%*, $1)->($2) // ''
     !eg;
     s{\@([^\@]+?)\@}{
-        db_get($db->%*, $1) // ''
+        my ($val, $def) = (split('//', $1), '');
+
+        db_get($db->%*, $val) // $def;
     }eg;
     $_
 }

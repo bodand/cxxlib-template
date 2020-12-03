@@ -93,7 +93,7 @@ add_subdirectory(src)
 ## Settings target ##
 add_library("@Project.Target@Settings" INTERFACE)
 add_library("@Project.Name@::@Project.Target@Settings" ALIAS "@Project.Target@Settings")
-set("${${PROJECT_NAME}_TARGET}_SETTINGS" = "@Project.Target@Settings")
+set("${${PROJECT_NAME}_TARGET}_SETTINGS" "@Project.Target@Settings")
 
 ## Entity export semantics ##
 if ("${${PROJECT_NAME}_OPTION}_BUILD_SHARED")

@@ -23,5 +23,5 @@ add_library("@Project.Target@Sources" INTERFACE
             ## ...sources... ##
             dummy.cxx
             )
-add_library("@Project.Name@::@Project.Target@Sources" ALIAS "@Project.Target@SOURCES")
+add_library("@Project.Name@::@Project.Target@Sources" ALIAS "@Project.Target@Sources")
 set("${${PROJECT_NAME}_TARGET}_SOURCES" "@Project.Target@Headers")
