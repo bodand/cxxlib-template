@@ -1,0 +1,12 @@
+## @Project.Name@ project
+# 
+# Copyright (c) @Date.Year@ @Git.Config{user.name}@
+#
+# Licensed under the BSD 3-Clause license.
+# For more information see the provided LICENSE.txt file.
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(fmt REQUIRED)
+
+include("${CMAKE_CURRENT_LIST_DIR}/@Project.Name@Targets.cmake")
