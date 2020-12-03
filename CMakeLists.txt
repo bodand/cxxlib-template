@@ -124,8 +124,8 @@ target_link_libraries("@Project.Target@"
                       PRIVATE
                       "${${${PROJECT_NAME}_TARGET}_SETTINGS}"
                       "${${${PROJECT_NAME}_TARGET}_SOURCES}"
-                      "${${${PROJECT_NAME}_TARGET}_WARNINGS}"
-                      "${${${PROJECT_NAME}_TARGET}_DEPENDENCIES}"
+                      "@Project.Name@Warnings"
+                      "@Project.Name@Dependencies"
                       )
 
 ## Optional targets ############################################################
