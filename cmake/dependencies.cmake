@@ -27,6 +27,7 @@ include(GetDependency)
 
 ## Create the dependency target ################################################
 add_library(@Project.Name@Dependencies INTERFACE)
+add_library(@Project.Name@LeakedDependencies INTERFACE)
 add_library(@Project.Name@TestDependencies INTERFACE)
 
 ## Get dependencies ############################################################
@@ -71,6 +72,6 @@ message(CHECK_PASS "done")
 
 
 ## Installation ################################################################
-install(TARGETS "@Project.Name@Dependencies"
+install(TARGETS "@Project.Name@Dependencies" "@Project.Name@LeakedDependencies"
         EXPORT "${PROJECT_NAME}Targets"
         )

@@ -149,7 +149,7 @@ endif ()
 
 ## Install targets #############################################################
 
-install(TARGETS "${${PROJECT_NAME}_TARGET}"
+install(TARGETS "${${PROJECT_NAME}_TARGET}" "${${${PROJECT_NAME}_TARGET}_SETTINGS}"
         EXPORT "${PROJECT_NAME}Targets"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"

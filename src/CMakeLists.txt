@@ -23,4 +23,11 @@ add_library("@Project.Target@Sources" INTERFACE
             "${CMAKE_CURRENT_SOURCE_DIR}/dummy.cxx"
             )
 add_library("@Project.Name@::@Project.Target@Sources" ALIAS "@Project.Target@Sources")
-set("${${PROJECT_NAME}_TARGET}_SOURCES" "@Project.Target@Headers")
+
+set("${${PROJECT_NAME}_TARGET}_SOURCES" "@Project.Target@Sources")
+set("${${PROJECT_NAME}_TARGET}_SOURCES" "@Project.Target@Sources" PARENT_SCOPE)
+
+## Installation ################################################################
+install(TARGETS "${${${PROJECT_NAME}_TARGET}_SOURCES}"
+        EXPORT "${PROJECT_NAME}Targets"
+        )
