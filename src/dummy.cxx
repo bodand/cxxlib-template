@@ -1,4 +1,1 @@
-# Dummy file #
-
-int 
-f(int x) { return x + 1; }
+#error "This source file intentionally does not compile"

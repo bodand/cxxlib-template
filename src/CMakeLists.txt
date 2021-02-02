@@ -32,7 +32,7 @@ target_link_libraries("${${${PROJECT_NAME}_TARGET}_SOURCES}"
                       "${${${PROJECT_NAME}_TARGET}_HEADERS}"
                       "${${${PROJECT_NAME}_TARGET}_SETTINGS}"
                       @Project.Target@Warnings
-                      @Project.Target@ManaVMtDependencies
+                      @Project.Target@Dependencies
                       )
 
 ## Installation ################################################################
