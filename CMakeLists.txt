@@ -1,5 +1,5 @@
 ## @Project.Name@ project
-# 
+#
 # Copyright (c) @Date.Year@ @Git.Config{user.name}@
 #
 # Licensed under the BSD 3-Clause license.
@@ -27,6 +27,8 @@ project("@Project.Name@"
         DESCRIPTION "@Project.Description@"
         LANGUAGES CXX
         )
+## Project option name ##
+string(TOUPPER "${PROJECT_NAME}" "${PROJECT_NAME}_OPTION")
 
 ## Modules #####################################################################
 ## stdlib ##
@@ -40,9 +42,6 @@ include(dependencies) # target: @Project.Name@Dependencies
 
 ## Project configuration #######################################################
 
-## Project option name ##
-string(TOUPPER "${PROJECT_NAME}" "${PROJECT_NAME}_OPTION")
-
 ## Check if main project ##
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set("${PROJECT_NAME}_MAIN" On)
@@ -52,11 +51,11 @@ endif ()
 
 ## Options ##
 option("${${PROJECT_NAME}_OPTION}_BUILD_TESTS"
-       "Build the ${PROJECT_NAME} test suite [Off as dependency]" 
+       "Build the ${PROJECT_NAME} test suite [Off as dependency]"
        "${${PROJECT_NAME}_MAIN}"
        )
 option("${${PROJECT_NAME}_OPTION}_BUILD_DOCS"
-       "Build the ${PROJECT_NAME} documentation (Requires: 'Doxygen') [Off]" 
+       "Build the ${PROJECT_NAME} documentation (Requires: 'Doxygen') [Off]"
        Off
        )
 option("${${PROJECT_NAME}_OPTION}_BUILD_STATIC"
@@ -74,35 +73,19 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
 ## Main target name ##
 set("${PROJECT_NAME}_TARGET" "@Project.Target@")
 
-## Create header target ##
-add_subdirectory(inc)
-# Targets:
-# - "@Project.Target@Headers" INTERFACE
-# - "@Project.Name@::@Project.Target@Headers" ALIAS
-# Vars:
-# - "${${PROJECT_NAME}_TARGET}_HEADERS" = "@Project.Target@Headers"
-
-## Create source target ##
-add_subdirectory(src)
-# Targets:
-# - "@Project.Target@Sources" INTERFACE
-# - "@Project.Name@::@Project.Target@Sources" ALIAS
-# Vars:
-# - "${${PROJECT_NAME}_TARGET}_OBJECTS" = "@Project.Target@Objects"
-
 ## Settings target ##
 add_library("@Project.Target@Settings" INTERFACE)
 add_library("@Project.Name@::@Project.Target@Settings" ALIAS "@Project.Target@Settings")
 set("${${PROJECT_NAME}_TARGET}_SETTINGS" "@Project.Target@Settings")
 
 ## Entity export semantics ##
-if ("${${PROJECT_NAME}_OPTION}_BUILD_SHARED")
+if ("${${${PROJECT_NAME}_OPTION}_BUILD_SHARED}")
     target_compile_definitions("${${${PROJECT_NAME}_TARGET}_SETTINGS}"
                                INTERFACE
                                "${${PROJECT_NAME}_TARGET}_STATIC"
                                )
 else ()
-    target_compile_options("${${${PROJECT_NAME}_TARGET}_SETTINGS}" 
+    target_compile_options("${${${PROJECT_NAME}_TARGET}_SETTINGS}"
                            INTERFACE
                            $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fvisibility=hidden>
                            )
@@ -114,10 +97,13 @@ target_compile_features("${${${PROJECT_NAME}_TARGET}_SETTINGS}"
                         cxx_std_20
                         )
 
+## Create header target ##
+add_subdirectory(inc)
+## Create source target ##
+add_subdirectory(src)
+
 ## Create final library ##
-add_library("@Project.Target@" "${${${PROJECT_NAME}_OPTION}_BUILD_TYPE}"
-            $<TARGET_PROPERTY:${${${PROJECT_NAME}_TARGET}_SOURCES},SOURCES>
-            )
+add_library("@Project.Target@" "${${${PROJECT_NAME}_OPTION}_BUILD_TYPE}")
 add_library("@Project.Name@::@Project.Target@" ALIAS "@Project.Target@")
 
 target_link_libraries("@Project.Target@"
@@ -132,7 +118,7 @@ target_link_libraries("@Project.Target@"
 ## Optional targets ############################################################
 
 ## Enable tests ##
-if ("${${PROJECT_NAME}_OPTION}_BUILD_TESTS")
+if ("${${${PROJECT_NAME}_OPTION}_BUILD_TESTS}")
     include(CTest)
 
     message(STATUS "[${PROJECT_NAME}] Building tests")
@@ -141,7 +127,7 @@ if ("${${PROJECT_NAME}_OPTION}_BUILD_TESTS")
 endif ()
 
 ## Build docs ##
-if ("${${PROJECT_NAME}_OPTION}_BUILD_DOCS")
+if ("${${${PROJECT_NAME}_OPTION}_BUILD_DOCS}")
     message(STATUS "[${PROJECT_NAME}] Building docs")
 
     add_subdirectory(docs)

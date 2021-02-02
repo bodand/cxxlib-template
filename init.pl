@@ -241,7 +241,7 @@ sub do_dir :prototype($\%_) {
             $_ = $new_name;
         }
 
-        say "checking $dir/$_: " . (-d "$dir/$_" ? 'dir' : 'not-dir');
+        $config{logger}->("checking $dir/$_: " . (-d "$dir/$_" ? 'dir' : 'not-dir'));
         &do_dir($file_proc, $db, "$dir/$_") if -d "$dir/$_";
         $file_proc->($db, "$dir/$_") if -f "$dir/$_";
     }
